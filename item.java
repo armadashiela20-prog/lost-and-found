@@ -32,6 +32,33 @@ public class item {
                     fieldName + " cannot be empty.");
         }
     }
+ public String getItemName() {
+        return ItemName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getDateReported() {
+        return dateReported;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getPersonName() {
+        return "N/A";
+    }
+
+    public String getItemType() {
+        return "Item";
+    }
 
 
     
