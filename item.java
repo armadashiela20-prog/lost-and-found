@@ -59,6 +59,26 @@ public class item {
     public String getItemType() {
         return "Item";
     }
+ public void setItemName(String ItemName) {
+        validateRequiredField(ItemName, "Item name");
+        this.ItemName = ItemName;
+    }
+
+    public void setDescription(String description) {
+        validateRequiredField(description, "Description");
+        this.description = description;
+    }
+
+    public void setLocation(String location) {
+        validateRequiredField(location, "Location");
+        this.location = location;
+    }
+
+    public void setDateReported(String dateReported) {
+        validateRequiredField(dateReported, "Date");
+        this.dateReported = dateReported;
+    }
+
 
 
     
