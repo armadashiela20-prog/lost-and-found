@@ -24,6 +24,15 @@ public class item {
     this.dateReported = dateReported;
     this.status = status;
 }
+    protected final void validateRequiredField(
+            String value, String fieldName) {
+
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    fieldName + " cannot be empty.");
+        }
+    }
+
 
     
 
