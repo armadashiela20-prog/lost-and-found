@@ -26,4 +26,8 @@ public String getPersonName() {
 public String getItemType() {
     return "Found Item";
 }
+public void setFinderName(String finderName) {
+    validateRequiredField(finderName, "Finder name");
+    this.finderName = finderName;
+}
 }
