@@ -112,3 +112,40 @@ centerPanel.add(
         scrollPane, java.awt.BorderLayout.CENTER);
 
 add(centerPanel, java.awt.BorderLayout.CENTER);
+
+javax.swing.JPanel buttonPanel =
+        new javax.swing.JPanel(
+                new java.awt.FlowLayout());
+
+javax.swing.JButton addButton =
+        new javax.swing.JButton("Add Record");
+
+javax.swing.JButton searchButton =
+        new javax.swing.JButton("Search");
+
+javax.swing.JButton showButton =
+        new javax.swing.JButton("Show All");
+
+javax.swing.JButton updateButton =
+        new javax.swing.JButton("Update Status");
+
+javax.swing.JButton deleteButton =
+        new javax.swing.JButton("Delete");
+
+searchField = new javax.swing.JTextField(15);
+
+buttonPanel.add(addButton);
+buttonPanel.add(searchField);
+buttonPanel.add(searchButton);
+buttonPanel.add(showButton);
+buttonPanel.add(updateButton);
+buttonPanel.add(deleteButton);
+
+add(buttonPanel, java.awt.BorderLayout.SOUTH);
+
+addButton.addActionListener(e -> addRecord());
+searchButton.addActionListener(e -> searchRecord());
+searchField.addActionListener(e -> searchRecord());
+showButton.addActionListener(e -> displayRecords());
+updateButton.addActionListener(e -> updateRecord());
+deleteButton.addActionListener(e -> deleteRecord());
