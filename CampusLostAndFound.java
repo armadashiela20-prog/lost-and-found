@@ -214,46 +214,31 @@ public class CampusLostAndFound extends javax.swing.JFrame {
         }
     }
 
-         String keyword = searchField.getText().trim();
+    private void searchRecord() {
+
+        String keyword = searchField.getText().trim();
 
         if (keyword.isEmpty()) {
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this, "Enter an Item Name!");
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, "Enter an Item Name!");
 
-    return;
-}
+            return;
+        }
 
         item found = itemList.searchItem(keyword);
 
         if (found == null) {
 
-    javax.swing.JOptionPane.showMessageDialog(
-            this, "Item not found!");
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, "Item not found!");
 
-    return;
-}
+            return;
+        }
 
         displayRecords();
 
-        Node current = itemList.getHead();
-        int row = 0;
-
-        while (current != null) {
-
-            if (current.getData() == found) {
-
-                table.setRowSelectionInterval(row, row);
-
-                table.scrollRectToVisible(
-                        table.getCellRect(row, 0, true));
-
-                break;
-            }
-
-            current = current.getNext();
-            row++;
-        }
+        
 
         javax.swing.JOptionPane.showMessageDialog(
                 this,
