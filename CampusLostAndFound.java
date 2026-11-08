@@ -184,8 +184,10 @@ public class CampusLostAndFound extends javax.swing.JFrame {
         String date = java.time.LocalDate.now().toString();
 
         try {
-            
-             if (type.equals("Lost Item")) {
+
+            item newItem;
+
+            if (type.equals("Lost Item")) {
 
                 newItem = new LostItem(
                         name, description, location,
@@ -200,7 +202,6 @@ public class CampusLostAndFound extends javax.swing.JFrame {
 
             itemList.addItem(newItem);
 
-            
             displayRecords();
             clearFields();
 
@@ -214,6 +215,7 @@ public class CampusLostAndFound extends javax.swing.JFrame {
         }
     }
 
+    // SEARCH RECORD
     private void searchRecord() {
 
         String keyword = searchField.getText().trim();
@@ -266,7 +268,31 @@ public class CampusLostAndFound extends javax.swing.JFrame {
     }
 
     // DISPLAY RECORDS
-    
+    private void displayRecords() {
+
+        model.setRowCount(0);
+
+        Node current = itemList.getHead();
+
+        while (current != null) {
+
+            item currentItem = current.getData();
+
+            Object[] row = {
+                currentItem.getItemName(),
+                currentItem.getDescription(),
+                currentItem.getLocation(),
+                currentItem.getDateReported(),
+                currentItem.getItemType(),
+                currentItem.getPersonName(),
+                currentItem.getStatus()
+            };
+
+            model.addRow(row);
+
+            current = current.getNext();
+        }
+    }
 
     // UPDATE STATUS
     private void updateRecord() {
