@@ -38,3 +38,40 @@ public class CampusLostAndFound extends javax.swing.JFrame {
         title.setForeground(new java.awt.Color(30, 70, 120));
 
         add(title, java.awt.BorderLayout.NORTH);
+
+    javax.swing.JPanel inputPanel =
+        new javax.swing.JPanel(
+                new java.awt.GridLayout(6, 2, 8, 8));
+
+inputPanel.setBorder(
+        javax.swing.BorderFactory.createTitledBorder(
+                "Item Information"));
+
+nameField = new javax.swing.JTextField();
+descriptionField = new javax.swing.JTextField();
+locationField = new javax.swing.JTextField();
+personField = new javax.swing.JTextField();
+
+typeBox = new javax.swing.JComboBox<>(
+        new String[]{"Lost Item", "Found Item"});
+
+statusBox = new javax.swing.JComboBox<>(
+        new String[]{"Lost", "Found", "Claimed"});
+
+inputPanel.add(new javax.swing.JLabel("Item Name:"));
+inputPanel.add(nameField);
+
+inputPanel.add(new javax.swing.JLabel("Description:"));
+inputPanel.add(descriptionField);
+
+inputPanel.add(new javax.swing.JLabel("Location:"));
+inputPanel.add(locationField);
+
+inputPanel.add(new javax.swing.JLabel("Reported By:"));
+inputPanel.add(personField);
+
+inputPanel.add(new javax.swing.JLabel("Record Type:"));
+inputPanel.add(typeBox);
+
+inputPanel.add(new javax.swing.JLabel("Status:"));
+inputPanel.add(statusBox);
