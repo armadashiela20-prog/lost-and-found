@@ -1,4 +1,20 @@
 
+package campuslostandfound;
+
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
+
+
+public class LostFoundFrame extends javax.swing.JFrame {
+private ItemLinkedList itemList = new ItemLinkedList();
+   
+private int[] displayedIndexes = new int[100];
+private int displayedCount = 0;
+  
+    public LostFoundFrame() {
+        initComponents();
+    
+}
 
 // CONSTRUCTOR WITH EXISTING LINKED LIST
 public LostFoundFrame(ItemLinkedList itemList) {
