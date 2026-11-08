@@ -5,4 +5,13 @@ public class LostItem extends item{
     private String ownerName;
 
 }
-}
+public LostItem(String name, String description,
+            String location, String date,
+            String status, String ownerName) {
+
+        super(name, description, location, date, status);
+
+        validateRequiredField(ownerName, "Owner name");
+        this.ownerName = ownerName;
+    }
+
