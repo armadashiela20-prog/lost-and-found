@@ -20,3 +20,6 @@ public Node getNext() {
 public void setNext(Node next) {
     this.next = next;
 }
+public item getData() {
+    return data;
+}
