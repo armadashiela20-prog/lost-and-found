@@ -79,6 +79,28 @@ public class item {
         this.dateReported = dateReported;
     }
 
+    public void setStatus(String status) {
+        validateRequiredField(status, "Status");
+
+        if (!status.equalsIgnoreCase("Lost")
+                && !status.equalsIgnoreCase("Found")
+                && !status.equalsIgnoreCase("Claimed")) {
+
+            throw new IllegalArgumentException(
+                    "Invalid status.");
+        }
+
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return getItemType()
+                + " | " + ItemName
+                + " | " + getPersonName();
+    }
+}
+    
 
 
     
