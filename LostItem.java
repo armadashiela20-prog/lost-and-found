@@ -15,3 +15,7 @@ public LostItem(String name, String description,
         this.ownerName = ownerName;
     }
 
+ public String getOwnerName() {
+        return ownerName;
+    }
+
