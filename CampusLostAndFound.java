@@ -16,7 +16,7 @@ public class CampusLostAndFound extends javax.swing.JFrame {
     private javax.swing.JTable table;
     private javax.swing.table.DefaultTableModel model;
 
-     public CampusLostAndFound() {
+    public CampusLostAndFound() {
 
         setTitle("Campus Lost-and-Found Tracker");
         setSize(1100, 650);
@@ -39,142 +39,361 @@ public class CampusLostAndFound extends javax.swing.JFrame {
 
         add(title, java.awt.BorderLayout.NORTH);
 
-    javax.swing.JPanel inputPanel =
-        new javax.swing.JPanel(
-                new java.awt.GridLayout(6, 2, 8, 8));
+        // INPUT PANEL
+        javax.swing.JPanel inputPanel =
+                new javax.swing.JPanel(
+                        new java.awt.GridLayout(6, 2, 8, 8));
 
-inputPanel.setBorder(
-        javax.swing.BorderFactory.createTitledBorder(
-                "Item Information"));
+        inputPanel.setBorder(
+                javax.swing.BorderFactory.createTitledBorder(
+                        "Item Information"));
 
-nameField = new javax.swing.JTextField();
-descriptionField = new javax.swing.JTextField();
-locationField = new javax.swing.JTextField();
-personField = new javax.swing.JTextField();
+        nameField = new javax.swing.JTextField();
+        descriptionField = new javax.swing.JTextField();
+        locationField = new javax.swing.JTextField();
+        personField = new javax.swing.JTextField();
 
-typeBox = new javax.swing.JComboBox<>(
-        new String[]{"Lost Item", "Found Item"});
+        typeBox = new javax.swing.JComboBox<>(
+                new String[]{"Lost Item", "Found Item"});
 
-statusBox = new javax.swing.JComboBox<>(
-        new String[]{"Lost", "Found", "Claimed"});
+        statusBox = new javax.swing.JComboBox<>(
+                new String[]{"Lost", "Found", "Claimed"});
 
-inputPanel.add(new javax.swing.JLabel("Item Name:"));
-inputPanel.add(nameField);
+        inputPanel.add(new javax.swing.JLabel("Item Name:"));
+        inputPanel.add(nameField);
 
-inputPanel.add(new javax.swing.JLabel("Description:"));
-inputPanel.add(descriptionField);
+        inputPanel.add(new javax.swing.JLabel("Description:"));
+        inputPanel.add(descriptionField);
 
-inputPanel.add(new javax.swing.JLabel("Location:"));
-inputPanel.add(locationField);
+        inputPanel.add(new javax.swing.JLabel("Location:"));
+        inputPanel.add(locationField);
 
-inputPanel.add(new javax.swing.JLabel("Reported By:"));
-inputPanel.add(personField);
+        inputPanel.add(new javax.swing.JLabel("Reported By:"));
+        inputPanel.add(personField);
 
-inputPanel.add(new javax.swing.JLabel("Record Type:"));
-inputPanel.add(typeBox);
+        inputPanel.add(new javax.swing.JLabel("Record Type:"));
+        inputPanel.add(typeBox);
 
-inputPanel.add(new javax.swing.JLabel("Status:"));
-inputPanel.add(statusBox);
-String[] columns = {
-    "Item Name",
-    "Description",
-    "Location",
-    "Date Reported",
-    "Type",
-    "Reported By",
-    "Status"
-};
+        inputPanel.add(new javax.swing.JLabel("Status:"));
+        inputPanel.add(statusBox);
 
-model = new javax.swing.table.DefaultTableModel(
-        columns, 0) {
+        // TABLE
+        String[] columns = {
+            "Item Name",
+            "Description",
+            "Location",
+            "Date Reported",
+            "Type",
+            "Reported By",
+            "Status"
+        };
 
-    @Override
-    public boolean isCellEditable(
-            int row, int column) {
-        return false;
+        model = new javax.swing.table.DefaultTableModel(
+                columns, 0) {
+
+            @Override
+            public boolean isCellEditable(
+                    int row, int column) {
+                return false;
+            }
+        };
+
+        table = new javax.swing.JTable(model);
+        table.setRowHeight(25);
+
+        javax.swing.JScrollPane scrollPane =
+                new javax.swing.JScrollPane(table);
+
+        javax.swing.JPanel centerPanel =
+                new javax.swing.JPanel(
+                        new java.awt.BorderLayout(10, 10));
+
+        centerPanel.add(
+                inputPanel, java.awt.BorderLayout.NORTH);
+
+        centerPanel.add(
+                scrollPane, java.awt.BorderLayout.CENTER);
+
+        add(centerPanel, java.awt.BorderLayout.CENTER);
+
+        // BUTTON PANEL
+        javax.swing.JPanel buttonPanel =
+                new javax.swing.JPanel(
+                        new java.awt.FlowLayout());
+
+        javax.swing.JButton addButton =
+                new javax.swing.JButton("Add Record");
+
+        javax.swing.JButton searchButton =
+                new javax.swing.JButton("Search");
+
+        javax.swing.JButton showButton =
+                new javax.swing.JButton("Show All");
+
+        javax.swing.JButton updateButton =
+                new javax.swing.JButton("Update Status");
+
+        javax.swing.JButton deleteButton =
+                new javax.swing.JButton("Delete");
+
+        searchField = new javax.swing.JTextField(15);
+
+        buttonPanel.add(addButton);
+        buttonPanel.add(searchField);
+        buttonPanel.add(searchButton);
+        buttonPanel.add(showButton);
+        buttonPanel.add(updateButton);
+        buttonPanel.add(deleteButton);
+
+        add(buttonPanel, java.awt.BorderLayout.SOUTH);
+
+        // BUTTON ACTIONS
+        addButton.addActionListener(e -> addRecord());
+
+        searchButton.addActionListener(e -> searchRecord());
+
+        searchField.addActionListener(e -> searchRecord());
+
+        showButton.addActionListener(e -> displayRecords());
+
+        updateButton.addActionListener(e -> updateRecord());
+
+        deleteButton.addActionListener(e -> deleteRecord());
     }
-};
 
-table = new javax.swing.JTable(model);
-table.setRowHeight(25);
+    // ADD RECORD
+    private void addRecord() {
 
-javax.swing.JScrollPane scrollPane =
-        new javax.swing.JScrollPane(table);
+        String name = nameField.getText().trim();
+        String description = descriptionField.getText().trim();
+        String location = locationField.getText().trim();
+        String person = personField.getText().trim();
 
-javax.swing.JPanel centerPanel =
-        new javax.swing.JPanel(
-                new java.awt.BorderLayout(10, 10));
+        if (name.isEmpty() || description.isEmpty()
+                || location.isEmpty() || person.isEmpty()) {
 
-centerPanel.add(
-        inputPanel, java.awt.BorderLayout.NORTH);
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, "Please fill in all fields!");
 
-centerPanel.add(
-        scrollPane, java.awt.BorderLayout.CENTER);
+            return;
+        }
 
-add(centerPanel, java.awt.BorderLayout.CENTER);
+        String type = (String) typeBox.getSelectedItem();
+        String status = (String) statusBox.getSelectedItem();
 
-javax.swing.JPanel buttonPanel =
-        new javax.swing.JPanel(
-                new java.awt.FlowLayout());
+        String date = java.time.LocalDate.now().toString();
 
-javax.swing.JButton addButton =
-        new javax.swing.JButton("Add Record");
+        try {
 
-javax.swing.JButton searchButton =
-        new javax.swing.JButton("Search");
+            item newItem;
 
-javax.swing.JButton showButton =
-        new javax.swing.JButton("Show All");
+            if (type.equals("Lost Item")) {
 
-javax.swing.JButton updateButton =
-        new javax.swing.JButton("Update Status");
+                newItem = new LostItem(
+                        name, description, location,
+                        date, status, person);
 
-javax.swing.JButton deleteButton =
-        new javax.swing.JButton("Delete");
+            } else {
 
-searchField = new javax.swing.JTextField(15);
+                newItem = new FoundItem(
+                        name, description, location,
+                        date, status, person);
+            }
 
-buttonPanel.add(addButton);
-buttonPanel.add(searchField);
-buttonPanel.add(searchButton);
-buttonPanel.add(showButton);
-buttonPanel.add(updateButton);
-buttonPanel.add(deleteButton);
+            itemList.addItem(newItem);
 
-add(buttonPanel, java.awt.BorderLayout.SOUTH);
+            displayRecords();
+            clearFields();
 
-addButton.addActionListener(e -> addRecord());
-searchButton.addActionListener(e -> searchRecord());
-searchField.addActionListener(e -> searchRecord());
-showButton.addActionListener(e -> displayRecords());
-updateButton.addActionListener(e -> updateRecord());
-deleteButton.addActionListener(e -> deleteRecord());
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, "Record added successfully!");
 
-item newItem;
+        } catch (IllegalArgumentException ex) {
 
-if (type.equals("Lost Item")) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, ex.getMessage());
+        }
+    }
 
-    newItem = new LostItem(
-            name, description, location,
-            date, status, person);
+    // SEARCH RECORD
+    private void searchRecord() {
 
-} else {
+        String keyword = searchField.getText().trim();
 
-    newItem = new FoundItem(
-            name, description, location,
-            date, status, person);
+        if (keyword.isEmpty()) {
+
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, "Enter an Item Name!");
+
+            return;
+        }
+
+        item found = itemList.searchItem(keyword);
+
+        if (found == null) {
+
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, "Item not found!");
+
+            return;
+        }
+
+        displayRecords();
+
+        Node current = itemList.getHead();
+        int row = 0;
+
+        while (current != null) {
+
+            if (current.getData() == found) {
+
+                table.setRowSelectionInterval(row, row);
+
+                table.scrollRectToVisible(
+                        table.getCellRect(row, 0, true));
+
+                break;
+            }
+
+            current = current.getNext();
+            row++;
+        }
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "ITEM FOUND!\n\n"
+                + "Name: " + found.getItemName()
+                + "\nLocation: " + found.getLocation()
+                + "\nStatus: " + found.getStatus());
+    }
+
+    // DISPLAY RECORDS
+    private void displayRecords() {
+
+        model.setRowCount(0);
+
+        Node current = itemList.getHead();
+
+        while (current != null) {
+
+            item currentItem = current.getData();
+
+            Object[] row = {
+                currentItem.getItemName(),
+                currentItem.getDescription(),
+                currentItem.getLocation(),
+                currentItem.getDateReported(),
+                currentItem.getItemType(),
+                currentItem.getPersonName(),
+                currentItem.getStatus()
+            };
+
+            model.addRow(row);
+
+            current = current.getNext();
+        }
+    }
+
+    // UPDATE STATUS
+    private void updateRecord() {
+
+        int selectedRow = table.getSelectedRow();
+
+        if (selectedRow == -1) {
+
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, "Please select a record first!");
+
+            return;
+        }
+
+        int modelRow = table.convertRowIndexToModel(selectedRow);
+
+        String[] statuses = {
+            "Lost", "Found", "Claimed"
+        };
+
+        String newStatus =
+                (String) javax.swing.JOptionPane.showInputDialog(
+                        this,
+                        "Select new status:",
+                        "Update Status",
+                        javax.swing.JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        statuses,
+                        statuses[0]);
+
+        if (newStatus != null) {
+
+            try {
+
+                itemList.updateStatus(modelRow, newStatus);
+
+                displayRecords();
+
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, "Status updated successfully!");
+
+            } catch (IllegalArgumentException ex) {
+
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, ex.getMessage());
+            }
+        }
+    }
+
+    // DELETE RECORD
+    private void deleteRecord() {
+
+        int selectedRow = table.getSelectedRow();
+
+        if (selectedRow == -1) {
+
+            javax.swing.JOptionPane.showMessageDialog(
+                    this, "Please select a record first!");
+
+            return;
+        }
+
+        int modelRow = table.convertRowIndexToModel(selectedRow);
+
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(
+                this,
+                "Are you sure you want to delete this record?",
+                "Confirm Delete",
+                javax.swing.JOptionPane.YES_NO_OPTION);
+
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+
+            if (itemList.deleteItem(modelRow)) {
+
+                displayRecords();
+
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, "Record deleted successfully!");
+
+            } else {
+
+                javax.swing.JOptionPane.showMessageDialog(
+                        this, "Unable to delete record!");
+            }
+        }
+    }
+
+    // CLEAR INPUT FIELDS
+    private void clearFields() {
+
+        nameField.setText("");
+        descriptionField.setText("");
+        locationField.setText("");
+        personField.setText("");
+        searchField.setText("");
+    }
+
+    // APPLICATION START
+   public static void main(String args[]) {
+    java.awt.EventQueue.invokeLater(() -> {
+        new LostFoundFrame().setVisible(true);
+    });
 }
-
-itemList.addItem(newItem);
-
-displayRecords();
-clearFields();
-
-javax.swing.JOptionPane.showMessageDialog(
-        this, "Record added successfully!");
-
-} catch (IllegalArgumentException ex) {
-
-    javax.swing.JOptionPane.showMessageDialog(
-            this, ex.getMessage());
 }
