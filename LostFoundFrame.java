@@ -361,38 +361,58 @@ private void displayRecords() {
     }
 }
 
-  private void updateRecord() {
+   private void searchRecord() {
 
-    int selectedRow = jTable3.getSelectedRow();
+    String keyword = jTextField5.getText().trim();
 
-    if (selectedRow == -1) {
+    if (keyword.isEmpty()) {
         JOptionPane.showMessageDialog(
-                this, "Please select a record first!");
+                this, "Enter an Item Name!");
         return;
     }
 
-    if (selectedRow >= displayedCount) {
+    item found = itemList.searchItem(keyword);
+
+    if (found == null) {
         JOptionPane.showMessageDialog(
-                this, "Invalid selected record!");
+                this, "Item not found!");
         return;
     }
 
-    int originalIndex = displayedIndexes[selectedRow];
+    displayRecords();
 
-    String newStatus = (String) jComboBox2.getSelectedItem();
+    Node current = itemList.getHead();
+    int row = 0;
+    boolean selected = false;
 
-    boolean updated = itemList.updateStatus(originalIndex, newStatus);
+    while (current != null) {
 
-    if (updated) {
-        displayRecords();
+        if (current.data == found) {
 
-        JOptionPane.showMessageDialog(
-                this, "Status updated successfully!");
-    } else {
-        JOptionPane.showMessageDialog(
-                this, "Unable to update record!");
+            if (row < jTable3.getRowCount()) {
+                jTable3.setRowSelectionInterval(row, row);
+
+                jTable3.scrollRectToVisible(
+                        jTable3.getCellRect(row, 0, true));
+
+                selected = true;
+            }
+
+            break;
+        }
+
+        current = current.next;
+        row++;
     }
+
+    JOptionPane.showMessageDialog(
+            this,
+            "ITEM FOUND!\n\n"
+            + "Name: " + found.getItemName()
+            + "\nLocation: " + found.getLocation()
+            + "\nStatus: " + found.getStatus());
 }
+
   private void deleteRecord() {
 
     int selectedRow = jTable3.getSelectedRow();
