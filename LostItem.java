@@ -4,8 +4,7 @@ package campuslostandfound;
 public class LostItem extends item{
     private String ownerName;
 
-}
-public LostItem(String name, String description,
+    public LostItem(String name, String description,
             String location, String date,
             String status, String ownerName) {
 
@@ -15,9 +14,10 @@ public LostItem(String name, String description,
         this.ownerName = ownerName;
     }
 
- public String getOwnerName() {
+    public String getOwnerName() {
         return ownerName;
     }
+
     @Override
     public String getPersonName() {
         return ownerName;
@@ -28,5 +28,9 @@ public LostItem(String name, String description,
         return "Lost Item";
     }
 
-
-
+    public void setOwnerName(String ownerName) {
+        validateRequiredField(ownerName, "Owner name");
+        this.ownerName = ownerName;
+    }
+    
+}
