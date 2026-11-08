@@ -75,3 +75,40 @@ inputPanel.add(typeBox);
 
 inputPanel.add(new javax.swing.JLabel("Status:"));
 inputPanel.add(statusBox);
+String[] columns = {
+    "Item Name",
+    "Description",
+    "Location",
+    "Date Reported",
+    "Type",
+    "Reported By",
+    "Status"
+};
+
+model = new javax.swing.table.DefaultTableModel(
+        columns, 0) {
+
+    @Override
+    public boolean isCellEditable(
+            int row, int column) {
+        return false;
+    }
+};
+
+table = new javax.swing.JTable(model);
+table.setRowHeight(25);
+
+javax.swing.JScrollPane scrollPane =
+        new javax.swing.JScrollPane(table);
+
+javax.swing.JPanel centerPanel =
+        new javax.swing.JPanel(
+                new java.awt.BorderLayout(10, 10));
+
+centerPanel.add(
+        inputPanel, java.awt.BorderLayout.NORTH);
+
+centerPanel.add(
+        scrollPane, java.awt.BorderLayout.CENTER);
+
+add(centerPanel, java.awt.BorderLayout.CENTER);
