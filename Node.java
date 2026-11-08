@@ -1,3 +1,5 @@
+package campuslostandfound;
+
 public class Node {
 
     item data;
@@ -12,14 +14,22 @@ public class Node {
         this.data = data;
         this.next = null;
     }
-}
-public Node getNext() {
-    return next;
+
+    public item getData() {
+        return data;
+    }
+
+    public Node getNext() {
+        return next;
+    }
+
+    public void setNext(Node next) {
+        this.next = next;
+    }
+
+    @Override
+    public String toString() {
+        return data.getItemName();
+    }
 }
 
-public void setNext(Node next) {
-    this.next = next;
-}
-public item getData() {
-    return data;
-}
