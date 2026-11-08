@@ -10,7 +10,8 @@ private ItemLinkedList itemList = new ItemLinkedList();
    
 private int[] displayedIndexes = new int[100];
 private int displayedCount = 0;
-  
+    
+
     public LostFoundFrame() {
         initComponents();
     
@@ -327,30 +328,7 @@ private void clearFields() {
             this, "Record added successfully!");
 }
   
-private void displayRecords() {
 
-    javax.swing.table.DefaultTableModel model =
-            (javax.swing.table.DefaultTableModel) jTable3.getModel();
-
-    model.setRowCount(0);
-    displayedCount = 0;
-
-    Node current = itemList.getHead();
-    int originalIndex = 0;
-
-    while (current != null && displayedCount < displayedIndexes.length) {
-
-        item record = current.data;
-
-        model.addRow(new Object[]{
-            record.getItemName(),
-            record.getDescription(),
-            record.getLocation(),
-            record.getDateReported(),
-            record.getItemType(),
-            record.getPersonName(),
-            record.getStatus()
-        });
 
         displayedIndexes[displayedCount] = originalIndex;
         displayedCount++;
