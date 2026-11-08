@@ -13,4 +13,17 @@ public class FoundItem extends item {
     validateRequiredField(finderName, "Finder name");
     this.finderName = finderName;
 }
+    public String getFinderName() {
+    return finderName;
+}
+
+@Override
+public String getPersonName() {
+    return finderName;
+}
+
+@Override
+public String getItemType() {
+    return "Found Item";
+}
 }
