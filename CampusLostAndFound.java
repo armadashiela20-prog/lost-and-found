@@ -342,7 +342,6 @@ public class CampusLostAndFound extends javax.swing.JFrame {
         }
     }
 
-    // DELETE RECORD
     private void deleteRecord() {
 
         int selectedRow = table.getSelectedRow();
@@ -380,7 +379,6 @@ public class CampusLostAndFound extends javax.swing.JFrame {
         }
     }
 
-    // CLEAR INPUT FIELDS
     private void clearFields() {
 
         nameField.setText("");
