@@ -328,7 +328,30 @@ private void clearFields() {
             this, "Record added successfully!");
 }
   
+private void displayRecords() {
 
+    javax.swing.table.DefaultTableModel model =
+            (javax.swing.table.DefaultTableModel) jTable3.getModel();
+
+    model.setRowCount(0);
+    displayedCount = 0;
+
+    Node current = itemList.getHead();
+    int originalIndex = 0;
+
+    while (current != null && displayedCount < displayedIndexes.length) {
+
+        item record = current.data;
+
+        model.addRow(new Object[]{
+            record.getItemName(),
+            record.getDescription(),
+            record.getLocation(),
+            record.getDateReported(),
+            record.getItemType(),
+            record.getPersonName(),
+            record.getStatus()
+        });
 
         displayedIndexes[displayedCount] = originalIndex;
         displayedCount++;
@@ -338,57 +361,6 @@ private void clearFields() {
     }
 }
 
-   private void searchRecord() {
-
-    String keyword = jTextField5.getText().trim();
-
-    if (keyword.isEmpty()) {
-        JOptionPane.showMessageDialog(
-                this, "Enter an Item Name!");
-        return;
-    }
-
-    item found = itemList.searchItem(keyword);
-
-    if (found == null) {
-        JOptionPane.showMessageDialog(
-                this, "Item not found!");
-        return;
-    }
-
-    displayRecords();
-
-    Node current = itemList.getHead();
-    int row = 0;
-    boolean selected = false;
-
-    while (current != null) {
-
-        if (current.data == found) {
-
-            if (row < jTable3.getRowCount()) {
-                jTable3.setRowSelectionInterval(row, row);
-
-                jTable3.scrollRectToVisible(
-                        jTable3.getCellRect(row, 0, true));
-
-                selected = true;
-            }
-
-            break;
-        }
-
-        current = current.next;
-        row++;
-    }
-
-    JOptionPane.showMessageDialog(
-            this,
-            "ITEM FOUND!\n\n"
-            + "Name: " + found.getItemName()
-            + "\nLocation: " + found.getLocation()
-            + "\nStatus: " + found.getStatus());
-}
   private void updateRecord() {
 
     int selectedRow = jTable3.getSelectedRow();
