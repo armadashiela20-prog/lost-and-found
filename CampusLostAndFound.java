@@ -149,3 +149,32 @@ searchField.addActionListener(e -> searchRecord());
 showButton.addActionListener(e -> displayRecords());
 updateButton.addActionListener(e -> updateRecord());
 deleteButton.addActionListener(e -> deleteRecord());
+
+item newItem;
+
+if (type.equals("Lost Item")) {
+
+    newItem = new LostItem(
+            name, description, location,
+            date, status, person);
+
+} else {
+
+    newItem = new FoundItem(
+            name, description, location,
+            date, status, person);
+}
+
+itemList.addItem(newItem);
+
+displayRecords();
+clearFields();
+
+javax.swing.JOptionPane.showMessageDialog(
+        this, "Record added successfully!");
+
+} catch (IllegalArgumentException ex) {
+
+    javax.swing.JOptionPane.showMessageDialog(
+            this, ex.getMessage());
+}
