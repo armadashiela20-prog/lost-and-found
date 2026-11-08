@@ -238,7 +238,24 @@ public class CampusLostAndFound extends javax.swing.JFrame {
 
         displayRecords();
 
-        
+        Node current = itemList.getHead();
+        int row = 0;
+
+        while (current != null) {
+
+            if (current.getData() == found) {
+
+                table.setRowSelectionInterval(row, row);
+
+                table.scrollRectToVisible(
+                        table.getCellRect(row, 0, true));
+
+                break;
+            }
+
+            current = current.getNext();
+            row++;
+        }
 
         javax.swing.JOptionPane.showMessageDialog(
                 this,
@@ -249,31 +266,7 @@ public class CampusLostAndFound extends javax.swing.JFrame {
     }
 
     // DISPLAY RECORDS
-    private void displayRecords() {
-
-        model.setRowCount(0);
-
-        Node current = itemList.getHead();
-
-        while (current != null) {
-
-            item currentItem = current.getData();
-
-            Object[] row = {
-                currentItem.getItemName(),
-                currentItem.getDescription(),
-                currentItem.getLocation(),
-                currentItem.getDateReported(),
-                currentItem.getItemType(),
-                currentItem.getPersonName(),
-                currentItem.getStatus()
-            };
-
-            model.addRow(row);
-
-            current = current.getNext();
-        }
-    }
+    
 
     // UPDATE STATUS
     private void updateRecord() {
