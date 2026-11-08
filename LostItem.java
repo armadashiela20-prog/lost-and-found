@@ -18,4 +18,15 @@ public LostItem(String name, String description,
  public String getOwnerName() {
         return ownerName;
     }
+    @Override
+    public String getPersonName() {
+        return ownerName;
+    }
+
+    @Override
+    public String getItemType() {
+        return "Lost Item";
+    }
+
+
 
