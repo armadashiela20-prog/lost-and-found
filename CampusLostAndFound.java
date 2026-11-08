@@ -184,10 +184,8 @@ public class CampusLostAndFound extends javax.swing.JFrame {
         String date = java.time.LocalDate.now().toString();
 
         try {
-
-            item newItem;
-
-            if (type.equals("Lost Item")) {
+            
+             if (type.equals("Lost Item")) {
 
                 newItem = new LostItem(
                         name, description, location,
@@ -202,6 +200,7 @@ public class CampusLostAndFound extends javax.swing.JFrame {
 
             itemList.addItem(newItem);
 
+            
             displayRecords();
             clearFields();
 
